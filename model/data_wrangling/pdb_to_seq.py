@@ -12,14 +12,14 @@ def pywalker(start_path):
                 full_file_path = os.path.join(root, file)
                 print(full_file_path)
                 protein_pdb.append(full_file_path)
-pywalker('data/P-L')
+pywalker('data/P-L/1981-2000')
 protein_data={}
 def pdb_to_seq():
     for file in protein_pdb:
         dirname, structure_id = os.path.split(file)
-        basename, extension = os.path.splitext(file)
-        parts = basename.split('_')
-        complex_id = parts[0]
+        filename = os.path.basename(file)       
+        stem = os.path.splitext(filename)[0]     
+        complex_id = stem.split("_")[0]    
         filename = file
         structure = parser.get_structure(structure_id, filename)
         # 2. Use Polypeptide Builder
@@ -29,7 +29,6 @@ def pdb_to_seq():
             all_chains.append((pp.get_sequence(),len(pp)))
         max_length = max(all_chains,key=lambda x: x[1])[0]
         protein_data[complex_id] = max_length
-
-pdb_to_seq()
+    return protein_data
 
 

@@ -14,10 +14,9 @@ pywalker('data/P-L')
 smiles_dict={}
 def sdf_to_smiles():
     for file in ligand_sdf:
-        dirname, structure_id = os.path.split(file)
-        basename, extension = os.path.splitext(file)
-        parts = basename.split('_')
-        complex_id = parts[0]
+        filename = os.path.basename(file)       
+        stem = os.path.splitext(filename)[0]     
+        complex_id = stem.split("_")[0]          
 
         sdf_supplier = Chem.SDMolSupplier(file)
         all_smiles=[]
@@ -26,4 +25,8 @@ def sdf_to_smiles():
                 # Get the SMILES string (canonical by default)
                 smi = Chem.MolToSmiles(mol)
                 all_smiles.append(smi)
-        smiles_dict[complex_id] = all_smiles[0]
+        if len(all_smiles) > 0:
+         smiles_dict[complex_id] = all_smiles[0]
+        else:
+            pass
+    return smiles_dict
