@@ -14,5 +14,7 @@ uv.lock
 #data stuff
 data/
 
-#model checkpoints
-models/
+
+# model related data
+*.pt 
+*.pkl
