@@ -13,3 +13,6 @@ uv.lock
 
 #data stuff
 data/
+
+#model checkpoints
+models/
