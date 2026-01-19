@@ -3,10 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class ProteinLigandClip(nn.Module):
-    def __init__(self,protein_encoder,ligand_encoder,protein_proj,ligand_proj,temperature=0.07):
+    def __init__(self,protein_encoder,protein_proj,ligand_proj,temperature=0.07):
         super().__init__()
         self.protein_encoder = protein_encoder
-        self.ligand_encoder =ligand_encoder
+        #self.ligand_encoder =ligand_encoder
         self.protein_proj = protein_proj
         self.ligand_proj = ligand_proj
 
@@ -14,7 +14,7 @@ class ProteinLigandClip(nn.Module):
             torch.tensor(1/temperature).log()
         )
     
-    def forward(self,protein_inputs,ligand_smiles):
+    def forward(self,protein_inputs,ligand_embeddings):
         #encode inputs
 
         protein_embeddings = self.protein_encoder(
@@ -22,7 +22,7 @@ class ProteinLigandClip(nn.Module):
             attention_mask = protein_inputs["attention_mask"]
         )
 
-        ligand_embeddings = self.ligand_encoder(ligand_smiles)
+        #ligand_embeddings = self.ligand_encoder(ligand_smiles)
 
         #projection
         protein_proj = self.protein_proj(protein_embeddings)
