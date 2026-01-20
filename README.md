@@ -139,6 +139,8 @@ To avoid conflicts:
 
 ---
 
+## Usage
+run `modal run modal/modal_train.py` to get started
 ## Acknowledgements
 
 * Meta AI — ESM2
